@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Routes, Route } from "react-router-dom";
+import SignIn from "./pages/SignIn";
+import Main from "./pages/Main";
+import Credit from "./pages/Credit";
+import SignOut from "./pages/SignOut";
+import { Icon } from "@mui/material";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/credit" element={<Credit />} />
+        <Route path="/signout" element={<SignOut />} />
+      </Routes>
+    </>
   );
 }
 
