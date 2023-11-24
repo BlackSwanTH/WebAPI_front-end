@@ -39,3 +39,29 @@ li:hover {
   background-color: rgb(100, 99, 99);
   color: rgb(255, 255, 255);
 }
+.snackbar {
+  position: fixed;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 60px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  z-index: 100;
+}
+.snackbar .symbol {
+  flex: 15%;
+}
+.snackbar .message {
+  flex: 85%;
+  font-weight: bolder;
+}
+#show {
+  visibility: visible;
+}
+#hide {
+  visibility: hidden;
+}

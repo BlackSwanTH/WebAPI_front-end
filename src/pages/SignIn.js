@@ -16,6 +16,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+
 function Copyright(props) {
   return (
     <Typography
@@ -37,6 +44,27 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [values, setValues] = useState({
+    password: "",
+    showPassword: false,
+  });
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handlePasswordChange = (prop) => (event) => {
+    setValues({
+      ...values,
+      [prop]: event.target.value,
+    });
+    setPassword(event.target.value);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -85,17 +113,49 @@ export default function SignIn() {
               value={id}
               onChange={(event) => setId(event.target.value)}
             />
-            <TextField
+            {/* <TextField
               margin="normal"
               required
               fullWidth
               name="password"
               label="Password"
-              type="password"
               id="password"
               autoComplete="current-password"
+              type={"password"}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+            /> */}
+            <TextField
+              required
+              fullWidth
+              autoComplete="current-password"
+              name="password"
+              label="Password"
+              type={values.showPassword ? "text" : "password"}
+              onChange={handlePasswordChange("password")}
+              value={values.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              // endAdornment={
+              //   <InputAdornment position="end">
+              //     <IconButton
+              //       onClick={handleClickShowPassword}
+              //       onMouseDown={handleMouseDownPassword}
+              //     >
+              //       {values.showPassword ? <Visibility /> : <VisibilityOff />}
+              //     </IconButton>
+              //   </InputAdornment>
+              // }
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -105,6 +165,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
+              size="large"
               sx={{ mt: 3, mb: 2 }}
               onClick={() => {
                 axios
